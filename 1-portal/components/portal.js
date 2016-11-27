@@ -1,8 +1,9 @@
 module.exports = {
+  dependencies: ['material'],
+
   init: function () {
-    const geometry = new THREE.RingGeometry(1, 1.1, 18);
-    const material = new THREE.MeshBasicMaterial({color: 0xffff00, side: THREE.DoubleSide});
-    const mesh = new THREE.Mesh(geometry, material);
+    const geometry = new THREE.RingGeometry(1, 1.1, 32);
+    const mesh = new THREE.Mesh(geometry, this.el.components.material.material);
     this.el.setObject3D('mesh', mesh);
   },
 

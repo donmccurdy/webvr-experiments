@@ -22,7 +22,7 @@ module.exports = {
         vCameraPosition: {value: new THREE.Vector3(0, 0, 0)},
         vPortalPosition: {value: new THREE.Vector3(0, 0, 0)},
         vPortalNormal:   {value: new THREE.Vector3(0, 0, 0)},
-        vPortalRadius:   {value: 0.5},
+        portalRadius:    {value: 1.0},
       },
       vertexShader: vertexShader,
       fragmentShader: fragmentShader
@@ -42,6 +42,6 @@ module.exports = {
     this.material.uniforms.time.value = t;
     this.material.uniforms.vCameraPosition.value.copy(cameraPos);
     this.material.uniforms.vPortalPosition.value.copy(portalPos);
-    this.material.uniforms.vPortalPosition.value.copy({x: 0, y: 0, z: 1});
+    this.material.uniforms.vPortalNormal.value.copy({x: 0, y: 0, z: 1});
   }
 };
