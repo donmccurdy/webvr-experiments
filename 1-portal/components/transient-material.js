@@ -3,16 +3,23 @@ const AFRAME = require('aframe'),
       vertexShader = glsl.file('../shaders/transient-sky.vertex.glsl'),
       fragmentShader = glsl.file('../shaders/transient-sky.fragment.glsl');
 
+const textureLoader = new THREE.TextureLoader();
+
 module.exports = {
   dependencies: ['material', 'geometry'],
 
   schema: {
     camera: {type: 'selector', default: '[camera]'},
     portal: {type: 'selector', default: '[portal]'},
-    side:   {default: 'A', oneOf: ['A', 'B']}
+    side:   {default: 'A', oneOf: ['A', 'B']},
+    textureA: {type: 'src'},
+    textureB: {type: 'src'},
   },
 
   init: function () {
+    const data = this.data,
+          mesh = this.el.getObject3D('mesh');
+
     this.material = new THREE.ShaderMaterial({
       side: THREE.BackSide,
       uniforms: {
@@ -22,16 +29,15 @@ module.exports = {
         vCameraPosition: {value: new THREE.Vector3(0, 0, 0)},
         vPortalPosition: {value: new THREE.Vector3(0, 0, 0)},
         vPortalNormal:   {value: new THREE.Vector3(0, 0, 0)},
+        textureA:        {type: 't', value: textureLoader.load(data.textureA)},
+        textureB:        {type: 't', value: textureLoader.load(data.textureB)},
         portalRadius:    {value: 1.0},
       },
       vertexShader: vertexShader,
       fragmentShader: fragmentShader
     });
 
-
-    this.el.object3D.traverse((o) => {
-      if (o instanceof THREE.Mesh) o.material = this.material;
-    });
+    mesh.material = this.material;
   },
 
   tick: function (t) {

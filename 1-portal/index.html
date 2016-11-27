@@ -7,7 +7,7 @@
     <script src="bundle.js"></script>
   </head>
   <body>
-    <a-scene debug>
+    <a-scene>
       <!-- Player -->
       <a-entity camera
                 look-controls
@@ -15,9 +15,10 @@
       <a-entity teleport-controls-DIS
                 vive-controls-DIS="hand: right"></a-entity>
 
-      <!-- Sky -->
+      <!-- Scene -->
       <a-entity geometry="primitive: sphere; radius: 65;"
-                transient-material></a-entity>
+                transient-material="textureA: url(assets/walker-lake-small.jpg);
+                                    textureB: url(assets/navarro-river-small.jpg);"></a-entity>
 
       <!-- Portal -->
       <a-entity material="color: #818D92; side: double;"
