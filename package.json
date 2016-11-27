@@ -1,0 +1,26 @@
+{
+  "name": "aframe-demos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "budo 1-portal/index.js:bundle.js -d 1-portal --port 9000 -- -t [ glslify ]"
+  },
+  "browserify": {
+    "transform": [
+      "glslify"
+    ]
+  },
+  "author": "Don McCurdy <dm@donmccurdy.com> (https://www.donmccurdy.com)",
+  "license": "MIT",
+  "dependencies": {
+    "aframe": "^0.3.2",
+    "aframe-teleport-controls": "^0.1.0"
+  },
+  "devDependencies": {
+    "browserify": "^13.1.1",
+    "budo": "^9.2.2",
+    "glslify": "^6.0.1"
+  }
+}
