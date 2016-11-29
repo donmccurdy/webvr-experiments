@@ -12,18 +12,15 @@
       <a-entity camera
                 look-controls
                 wasd-controls></a-entity>
-      <a-entity teleport-controls-DIS
-                vive-controls-DIS="hand: right"></a-entity>
+
+      <!-- Portal -->
+      <a-entity id="portal" position="0 1.7 -0.5"></a-entity>
 
       <!-- Scene -->
       <a-entity geometry="primitive: sphere; radius: 65;"
-                transient-material="textureA: url(assets/walker-lake-small.jpg);
+                transient-material="portal: #portal;
+                                    textureA: url(assets/walker-lake-small.jpg);
                                     textureB: url(assets/navarro-river-small.jpg);"></a-entity>
-
-      <!-- Portal -->
-      <a-entity material="color: #818D92; side: double;"
-                portal
-                position="0 0 -3"></a-entity>
     </a-scene>
   </body>
 </html>

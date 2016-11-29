@@ -10,7 +10,7 @@ module.exports = {
 
   schema: {
     camera: {type: 'selector', default: '[camera]'},
-    portal: {type: 'selector', default: '[portal]'},
+    portal: {type: 'selector', default: ''},
     side:   {default: 'A', oneOf: ['A', 'B']},
     textureA: {type: 'src'},
     textureB: {type: 'src'},
@@ -23,7 +23,7 @@ module.exports = {
     this.cameraPosition = new THREE.Vector3();
     this.portalPosition = new THREE.Vector3();
     this.portalNormal = new THREE.Vector3(0, 0, 1);
-    this.portalRadius = 1.0;
+    this.portalRadius = 0.25;
     this.isSideA = 1.0; // 1.0 | -1.0
     this.prevPosition = null;
 
