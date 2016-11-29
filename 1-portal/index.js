@@ -1,4 +1,4 @@
-var AFRAME = require('aframe');
+const AFRAME = require('aframe');
 
 // Components.
 require('aframe-teleport-controls');
