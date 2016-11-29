@@ -4,6 +4,7 @@ uniform vec3 vCameraPosition;
 uniform vec3 vPortalPosition;
 uniform vec3 vPortalNormal;
 uniform float portalRadius;
+uniform float isSideA;
 uniform sampler2D textureA;
 uniform sampler2D textureB;
 
@@ -18,10 +19,10 @@ void main() {
     vPortalNormal
   );
 
-  vec4 baseColor = texture2D(textureA, vUv);
+  float blend = isSideA;
   if (distance(vPortalPosition, vIntersectPosition) < portalRadius) {
-    baseColor = texture2D(textureB, vUv);
+    blend *= -1.0;
   }
 
-  gl_FragColor = baseColor;
+  gl_FragColor = mix(texture2D(textureB, vUv), texture2D(textureA, vUv), clamp(blend, 0.0, 1.0));
 }
