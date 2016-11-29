@@ -23,9 +23,6 @@ module.exports = {
     this.material = new THREE.ShaderMaterial({
       side: THREE.BackSide,
       uniforms: {
-        time:            {value: 0.0},
-        colorTop:        {value: new THREE.Color(0xF8F0DD)},
-        colorBottom:     {value: new THREE.Color(0xAAAAAA)},
         vCameraPosition: {value: new THREE.Vector3(0, 0, 0)},
         vPortalPosition: {value: new THREE.Vector3(0, 0, 0)},
         vPortalNormal:   {value: new THREE.Vector3(0, 0, 0)},
@@ -45,7 +42,6 @@ module.exports = {
           cameraPos = data.camera.getComputedAttribute('position'),
           portalPos = data.portal.getComputedAttribute('position');
 
-    this.material.uniforms.time.value = t;
     this.material.uniforms.vCameraPosition.value.copy(cameraPos);
     this.material.uniforms.vPortalPosition.value.copy(portalPos);
     this.material.uniforms.vPortalNormal.value.copy({x: 0, y: 0, z: 1});
