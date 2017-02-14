@@ -139,6 +139,6 @@ module.exports.Component = AFRAME.registerComponent('portal-material', {
   },
 
   remove: function () {
-    this.system.remove(this.material);
+    this.system.removePortalMaterial(this.material);
   }
 });

@@ -16,7 +16,7 @@
   "author": "Don McCurdy <dm@donmccurdy.com> (https://www.donmccurdy.com)",
   "license": "MIT",
   "dependencies": {
-    "aframe": "^0.3.2",
+    "aframe": "^0.5.0",
     "aframe-teleport-controls": "^0.1.0"
   },
   "devDependencies": {
