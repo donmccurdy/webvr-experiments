@@ -5,7 +5,8 @@ uniform vec3 vCameraPosition;
 uniform vec3 vPortalPosition;
 uniform vec3 vPortalNormal;
 uniform float portalRadius;
-uniform float sideOfPortal;
+uniform float cameraSide;
+uniform float materialSide;
 uniform sampler2D map;
 uniform vec3 diffuse;
 
@@ -20,12 +21,12 @@ void main() {
     vPortalNormal
   );
 
-  float cameraSide = sideOfPlane(vCameraPosition, vPortalPosition, vPortalNormal);
-  float vexelSide = sideOfPlane(vWorldPosition, vPortalPosition, vPortalNormal);
-  bool passThrough = cameraSide * vexelSide < 0.0
+  float cameraDir = sideOfPlane(vCameraPosition, vPortalPosition, vPortalNormal);
+  float vexelDir = sideOfPlane(vWorldPosition, vPortalPosition, vPortalNormal);
+  bool passThrough = cameraDir * vexelDir < 0.0
     && distance(vPortalPosition, vIntersectPosition) < portalRadius;
 
-  if (sideOfPortal > 0.0 == passThrough) {
+  if (cameraSide * materialSide > 0.0 == passThrough) {
     discard;
   }
 

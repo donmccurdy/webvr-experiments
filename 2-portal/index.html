@@ -7,29 +7,44 @@
   <script src="bundle.js"></script>
 </head>
 <body>
-  <a-scene>
-    <a-light type="ambient" intensity="2"></a-light>
+  <a-scene stats="true" antialias="true">
+    <a-light type="ambient" intensity="0"></a-light>
 
+    <!-- Camera -->
     <a-entity camera
               look-controls
               wasd-controls
               position="0 1.5 2"></a-entity>
 
-    <a-entity id="portal" position="0 1.25 -1"></a-entity>
+    <!-- Side A -->
+    <a-entity portal position="0 1.25 -1"></a-entity>
 
     <a-entity obj-model="obj: url(room.obj);"
-              portal-discard="portal: #portal;
+              portal-material="side: A;
                               color: #FFF;
                               map: url(tex/room.png);"></a-entity>
     <a-entity obj-model="obj: url(portalBase.obj);"
-              portal-discard="portal: #portal;
+              portal-material="side: A;
                               color: #AAA;
                               map: url(tex/portalBase.jpg);"></a-entity>
     <a-entity obj-model="obj: url(pillars.obj);"
-              portal-discard="portal: #portal;
+              portal-material="side: A;
                               color: #AAA;
                               map: url(tex/pillars.jpg);"></a-entity>
 
-    <a-box color="red" position="0 0 -2"></a-box>
+    <!-- Side B -->
+    <a-entity obj-model="obj: url(room.obj);"
+              portal-material="side: B;
+                              color: #CFC;
+                              map: url(tex/room.png);"></a-entity>
+    <a-entity obj-model="obj: url(portalBase.obj);"
+              portal-material="side: B;
+                              color: #8A8;
+                              map: url(tex/portalBase.jpg);"></a-entity>
+    <a-entity obj-model="obj: url(pillars.obj);"
+              portal-material="side: B;
+                              color: #8A8;
+                              map: url(tex/pillars.jpg);"></a-entity>
+
   </a-scene>
 </body>
