@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev:1": "budo 1-portal/index.js:bundle.js -d 1-portal --port 9000 -- -t [ glslify ]",
-    "dev:2": "budo 2-portal/index.js:bundle.js -d 2-portal --port 9000 -- -t [ glslify ]"
+    "dev:2": "budo 2-portal/index.js:bundle.js -d 2-portal --port 9000 -- -t [ glslify ]",
+    "dev:3": "budo 3-postprocessing/index.js:bundle.js -d 3-postprocessing --port 9000 -- -t [ glslify ]"
   },
   "browserify": {
     "transform": [
