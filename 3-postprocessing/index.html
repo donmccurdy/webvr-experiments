@@ -15,7 +15,9 @@
 
     <a-entity scale="0.2 0.2 0.2"
               obj-model="obj: url(assets/desk.obj);
-                         mtl: url(assets/desk.mtl);">
+                         mtl: url(assets/desk.mtl);"
+              material-map="map: emissiveMap;
+                            uri: assets/desk_emissive.png;">
       <a-animation attribute="rotation"
                    dur="10000"
                    fill="forwards"
@@ -24,6 +26,8 @@
                    repeat="indefinite"></a-animation>
     </a-entity>
 
-    <!-- <a-sky color="#302222"></a-sky> -->
+    <a-light type="point" position="0 2.15 0"></a-light>
+
+    <a-sky color="#302222"></a-sky>
   </a-scene>
 </body>
