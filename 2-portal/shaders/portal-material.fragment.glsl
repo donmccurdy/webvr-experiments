@@ -1,7 +1,6 @@
 #pragma glslify: linePlaneIntersect = require(./util/line-plane-intersect.glsl)
 #pragma glslify: sideOfPlane = require(./util/side-of-plane.glsl)
 
-uniform vec3 vCameraPosition;
 uniform vec3 vPortalPosition;
 uniform vec3 vPortalNormal;
 uniform float portalRadius;
@@ -15,13 +14,13 @@ varying vec2 vUv;
 
 void main() {
   vec3 vIntersectPosition = linePlaneIntersect(
-    vCameraPosition,
-    vCameraPosition - vWorldPosition,
+    cameraPosition,
+    cameraPosition - vWorldPosition,
     vPortalPosition,
     vPortalNormal
   );
 
-  float cameraDir = sideOfPlane(vCameraPosition, vPortalPosition, vPortalNormal);
+  float cameraDir = sideOfPlane(cameraPosition, vPortalPosition, vPortalNormal);
   float vexelDir = sideOfPlane(vWorldPosition, vPortalPosition, vPortalNormal);
   bool passThrough = cameraDir * vexelDir < 0.0
     && distance(vPortalPosition, vIntersectPosition) < portalRadius;

@@ -17,7 +17,6 @@ module.exports.System = AFRAME.registerSystem('portal', {
     this.materials = new Set();
 
     this.cameraSide = 1.0; // 1.0 | -1.0
-    this.cameraPosition = new THREE.Vector3();
     this.portalPosition = new THREE.Vector3();
     this.portalNormal = new THREE.Vector3(0, 0, 1);
     this.portalRadius = 0.8;
@@ -35,7 +34,6 @@ module.exports.System = AFRAME.registerSystem('portal', {
     const materials = Array.from(this.materials);
     for (var i = 0, material; (material = materials[i]); i++) {
       material.uniforms.cameraSide.value = this.cameraSide;
-      material.uniforms.vCameraPosition.value.copy(this.cameraPosition);
       material.uniforms.vPortalPosition.value.copy(this.portalPosition);
       material.uniforms.vPortalNormal.value.copy(this.portalNormal);
     }
@@ -44,7 +42,6 @@ module.exports.System = AFRAME.registerSystem('portal', {
   createPortalMaterial: function (inputUniforms) {
     const uniforms = AFRAME.utils.extend({
       cameraSide:      {value: this.cameraSide},
-      vCameraPosition: {value: this.cameraPosition},
       vPortalPosition: {value: this.portalPosition},
       vPortalNormal:   {value: this.portalNormal},
       portalRadius:    {value: this.portalRadius}
@@ -71,14 +68,14 @@ module.exports.System = AFRAME.registerSystem('portal', {
   updateTracking: (function () {
     const portalPlane = new THREE.Plane(),
           portalIntersection = new THREE.Vector3(),
+          currentPosition = new THREE.Vector3(),
           displacementSegment = new THREE.Line3(new THREE.Vector3(), new THREE.Vector3());
 
     return function () {
       const data = this.data,
-            prevPosition = this.prevPosition,
-            currentPosition = this.cameraPosition;
+            prevPosition = this.prevPosition;
 
-      this.cameraPosition.copy(data.camera.getAttribute('position'));
+      currentPosition.copy(data.camera.getAttribute('position'));
       this.portalPosition.copy(data.portal.getAttribute('position'));
 
       if (prevPosition && prevPosition.equals(currentPosition)) {
