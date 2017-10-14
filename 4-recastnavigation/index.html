@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="lib/recast.min.js"></script>
+    <script src="https://cdn.rawgit.com/dataarts/dat.gui/2659494a/build/dat.gui.min.js"></script>
+    <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
+    <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
+    <script src="bundle.js"></script>
+  </head>
+  <body>
+    <a-scene environment="preset: default; ground: none;">
+      <a-assets>
+        <a-asset-item id="nav-test" src="assets/nav_test.obj"></a-asset-item>
+      </a-assets>
+      <a-entity camera look-controls wasd-controls="acceleration: 120"></a-entity>
+      <a-entity obj-model="obj: #nav-test"
+                material="color: #ccc;"></a-entity>
+    </a-scene>
+  </body>
+</html>
