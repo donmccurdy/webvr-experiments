@@ -1,6 +1,14 @@
 /* global recast, dat */
 
+require('three/examples/js/exporters/OBJExporter');
+require('three/examples/js/exporters/GLTFExporter');
+
+const URL = window.URL || window.webkitURL;
+
 document.addEventListener('DOMContentLoaded', () => {
+
+  const sceneEl = document.querySelector('a-scene');
+  const contentEl = document.querySelector('#content');
 
   let navMesh;
 
@@ -35,7 +43,51 @@ document.addEventListener('DOMContentLoaded', () => {
     }));
   };
 
-  const sceneEl = document.querySelector('a-scene');
+  /**
+   * Instructs the browser to download the given file content.
+   * @param  {string} filename
+   * @param  {string} content
+   */
+  const downloadFile = (filename, content) => {
+    const element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(content));
+    element.setAttribute('download', filename);
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+  };
+
+  /**
+   * Import an OBJ, replacing the current scene and re-calculating the
+   * nav mesh.
+   */
+  const importFile = () => {
+    const uploadInput = document.createElement('input');
+    uploadInput.setAttribute('type', 'file');
+    uploadInput.style.display = 'none';
+    document.body.appendChild(uploadInput);
+
+    uploadInput.addEventListener('change', () => {
+      const importURL1 = URL.createObjectURL(uploadInput.files[0]);
+      const importURL2 = URL.createObjectURL(uploadInput.files[0]);
+      contentEl.setAttribute('obj-model', {obj: importURL1});
+      contentEl.addEventListener('model-loaded', function updateModel () {
+        URL.revokeObjectURL(importURL1);
+        contentEl.removeEventListener('model-loaded', updateModel);
+      });
+      recast.OBJLoader(importURL2, () => {
+        rebuild();
+        URL.revokeObjectURL(importURL2);
+        document.body.removeChild(uploadInput);
+      });
+    });
+
+    uploadInput.click();
+  };
+
   sceneEl.addEventListener('loaded', () => {
 
     /**
@@ -62,7 +114,9 @@ document.addEventListener('DOMContentLoaded', () => {
     recast.OBJLoader('assets/nav_test.obj', () => {
 
       const gui = new dat.GUI();
-      const folder = gui.addFolder('Recast');
+
+      /* Navmesh settings */
+      const folder = gui.addFolder('Navmesh settings');
       folder.add(settings, 'cellSize', 0, 1).onChange((value) => recast.set_cellSize(value));
       folder.add(settings, 'cellHeight', 0, 1).onChange((value) => recast.set_cellHeight(value));
       folder.add(settings, 'agentHeight', 0, 3).onChange((value) => recast.set_agentHeight(value));
@@ -71,6 +125,22 @@ document.addEventListener('DOMContentLoaded', () => {
       folder.add(settings, 'agentMaxSlope', 1, 45).onChange((value) => recast.set_agentMaxSlope(value));
       folder.add({rebuild: rebuild}, 'rebuild');
       folder.open();
+
+      /* Import / Export */
+      const ioFolder = gui.addFolder('Import / Export');
+      ioFolder.add({import: importFile}, 'import').name('import OBJ');
+      ioFolder.add({export0: () => {
+        const exporter = new THREE.GLTFExporter();
+        exporter.parse(navMesh, (gltfContent) => {
+          downloadFile('navmesh.gltf', JSON.stringify(gltfContent));
+        });
+      }}, 'export0').name('export → glTF');
+      ioFolder.add({export1: () => {
+        const exporter = new THREE.OBJExporter();
+        downloadFile('navmesh.obj', exporter.parse(navMesh));
+      }}, 'export1').name('export → OBJ');
+
+      rebuild();
 
     });
 

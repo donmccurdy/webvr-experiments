@@ -17,5 +17,8 @@
   "license": "MIT",
   "devDependencies": {
     "budo": "^10.0.4"
+  },
+  "dependencies": {
+    "three": "^0.87.1"
   }
 }
