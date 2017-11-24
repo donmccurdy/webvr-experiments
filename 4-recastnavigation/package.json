@@ -10,7 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "budo index.js:bundle.js",
     "build": "browserify index.js -o bundle.js",
-    "deploy": "npm run build && now --static && npm run clean",
+    "deploy": "npm run build && now --static --name recast && npm run clean",
     "clean": "rm bundle.js"
   },
   "author": "Don McCurdy <dm@donmccurdy.com> (https://www.donmccurdy.com)",

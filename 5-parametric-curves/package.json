@@ -1,0 +1,32 @@
+{
+  "name": "parametric-curves",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "budo src/index.js:bundle.js --live -- -t glslify",
+    "build": "browserify src/index.js -o bundle.js -t glslify"
+  },
+  "author": "Don McCurdy <dm@donmccurdy.com> (https://www.donmccurdy.com)",
+  "license": "MIT",
+  "devDependencies": {
+    "browserify": "^14.5.0",
+    "budo": "^10.0.4",
+    "glslify": "^6.1.0"
+  },
+  "dependencies": {
+    "glsl-easings": "^1.0.0",
+    "glsl-face-normal": "^1.0.2",
+    "glsl-pi": "^1.0.0",
+    "glslify-hex": "^2.1.1",
+    "simplex-noise": "^2.3.0",
+    "three": "^0.88.0",
+    "three-vignette-background": "^1.0.3",
+    "tweenr": "^2.2.1"
+  },
+  "glslify": {
+    "transform": [
+      "glslify-hex"
+    ]
+  }
+}
